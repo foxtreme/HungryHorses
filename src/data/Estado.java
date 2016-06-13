@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class Estado {
     
-    int [][] tablero;
-    Point posB;
-    Point posA;
-    Double puntosB;
-    Double puntosA;
-    Double utilidad;
-    int turno;
-    int profundidad;
+    private int [][] tablero;
+    private Point posB;
+    private Point posA;
+    private Double puntosB;
+    private Double puntosA;
+    private Double utilidad;
+    private int turno;
+    private int profundidad;
 
     public int getProfundidad() {
         return profundidad;

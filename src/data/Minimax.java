@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class Minimax {
     
-    Estado actual;
-    int profundidad;
-    Point movida;
+    private Estado actual;
+    private int profundidad;
+    private Point movida;
 
     public Estado getActual() {
         return actual;

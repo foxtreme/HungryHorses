@@ -9,7 +9,7 @@ package data;
  */
 public class Facil {
     
-    Estado actual;
-    Minimax facil;
+    private Estado actual;
+    private Minimax facil;
     
 }
