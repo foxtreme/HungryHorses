@@ -2,13 +2,14 @@ package data;
 
 import java.awt.Point;
 import java.util.List;
+
 /**
  *
  * @author ''Steven''
  */
 public class Estado {
-    
-    private int [][] tablero;
+
+    private int[][] tablero;
     private Point posB;
     private Point posA;
     private Double puntosB;
@@ -81,13 +82,49 @@ public class Estado {
         this.puntosB = puntosB;
         this.puntosA = puntosA;
     }
-    
-    public Estado(){
-  
+
+    public Estado() {
+
     }
 
     Estado resultado(Point accion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Estado proximo = new Estado();
+        int tamanio = this.tablero.length;
+        Double puntos = 0.0;
+        int[][] tablero = new int[tamanio][tamanio];
+        for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
+                tablero[i][j] = this.tablero[i][j];
+            }
+        }
+        if (tablero[accion.x][accion.y] == 3) {//3 para hierba (pendiente)
+            puntos = 1.0;
+        }
+        if (tablero[accion.x][accion.y] == 4) {//4 para flor (pendiente)
+            puntos = 3.0;
+        }
+        if (this.turno == 1) {//para el caballo blanco (pendiente)
+            tablero[posB.x][posB.y] = 0;//el caballo deja la posicion donde estaba
+            tablero[accion.x][accion.y] = 1; //1 para el caballo (pendiente)
+            proximo.setPosA(this.posA);
+            proximo.setPosB(accion);
+            proximo.setPuntosA(this.puntosA);
+            proximo.setPuntosB(puntos);
+            proximo.setTurno(2);//cambia el turno para el caballo negro
+        }
+        if (this.turno == 2) {//para el caballo negro (pendiente)
+            tablero[posA.x][posA.y] = 0;//el caballo deja la posicion donde estaba
+            tablero[accion.x][accion.y] = 2; //2 para el caballo (pendiente)
+            proximo.setPosB(this.posB);
+            proximo.setPosA(accion);
+            proximo.setPuntosB(this.puntosB);
+            proximo.setPuntosA(puntos);
+            proximo.setTurno(1);//cambia el turno para el caballo negro
+        }
+        
+        proximo.setProfundidad(this.profundidad + 1);
+        proximo.setTablero(tablero);
+        return proximo;
     }
 
     List movidasValidas() {
@@ -99,16 +136,16 @@ public class Estado {
     }
 
     Double calcularUtilidad() {
-        return (Double)this.puntosB - this.puntosA;
+        return (Double) this.puntosB - this.puntosA;
     }
 
     boolean terminal(int limite) {
-        boolean seAcaba=false;
-        
-        if(((35-puntosA-puntosB)==0) || (profundidad>limite)){
-            seAcaba=true;
+        boolean seAcaba = false;
+
+        if (((35 - puntosA - puntosB) == 0) || (profundidad > limite)) {
+            seAcaba = true;
         }
-        
+
         return seAcaba;
     }
 }
