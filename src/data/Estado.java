@@ -1,6 +1,7 @@
 package data;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -121,14 +122,73 @@ public class Estado {
             proximo.setPuntosA(puntos);
             proximo.setTurno(1);//cambia el turno para el caballo negro
         }
-        
+
         proximo.setProfundidad(this.profundidad + 1);
         proximo.setTablero(tablero);
         return proximo;
     }
 
     List movidasValidas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List movidas = new ArrayList<Point>();
+        Point posicion = new Point();
+        Point posicionOponente = new Point();
+        if (this.turno == 1) {
+            posicion.setLocation(this.posB.x, this.posB.y);
+            posicionOponente.setLocation(this.posA.x, this.posA.y);
+        }
+        if (this.turno == 2) {
+            posicion.setLocation(this.posA.x, this.posA.y);
+            posicionOponente.setLocation(this.posB.x, this.posB.y);
+        }
+        if ((posicion.x - 2) >= 0 && (posicion.y - 1) >= 0) {//arriba izq
+            boolean ocupada = posicionOponente.equals(new Point((posicion.x - 2), (posicion.y - 1)));
+            if (!ocupada) {
+                movidas.add(new Point((posicion.x - 2), (posicion.y - 1)));
+            }
+        }
+        if ((posicion.x - 2) >= 0 && (posicion.y + 1) <= 7) {//arriba der
+            boolean ocupada = posicionOponente.equals(new Point((posicion.x - 2), (posicion.y + 1)));
+            if (!ocupada) {
+                movidas.add(new Point((posicion.x - 2), (posicion.y + 1)));
+            }
+        }
+        if ((posicion.x + 2) <= 7 && (posicion.y - 1) >= 0) {//abajo izq
+            boolean ocupada = posicionOponente.equals(new Point((posicion.x + 2), (posicion.y - 1)));
+            if (!ocupada) {
+                movidas.add(new Point((posicion.x - 2), (posicion.y - 1)));
+            }
+        }
+        if ((posicion.x + 2) <= 7 && (posicion.y + 1) <= 7) {//abajo der
+            boolean ocupada = posicionOponente.equals(new Point((posicion.x + 2), (posicion.y + 1)));
+            if (!ocupada) {
+                movidas.add(new Point((posicion.x - 2), (posicion.y - 1)));
+            }
+        }
+        if ((posicion.y - 2) >= 0 && (posicion.x - 1) >= 0) {//izq arriba
+            boolean ocupada = posicionOponente.equals(new Point((posicion.y - 2), (posicion.x - 1)));
+            if (!ocupada) {
+                movidas.add(new Point((posicion.x - 1), (posicion.y - 2)));
+            }
+        }
+        if ((posicion.y - 2) >= 0 && (posicion.x + 1) <= 7) {//izq abajo
+            boolean ocupada = posicionOponente.equals(new Point((posicion.y - 2), (posicion.x + 1)));
+            if (!ocupada) {
+                movidas.add(new Point((posicion.x + 1), (posicion.y - 2)));
+            }
+        }
+        if ((posicion.y + 2) <= 7 && (posicion.x - 1) >= 0) {//der arriba
+            boolean ocupada = posicionOponente.equals(new Point((posicion.y + 2), (posicion.x - 1)));
+            if (!ocupada) {
+                movidas.add(new Point((posicion.x - 1), (posicion.y + 2)));
+            }
+        }
+        if ((posicion.y + 2) <= 7 && (posicion.x + 1) <= 7) {//der abajo
+            boolean ocupada = posicionOponente.equals(new Point((posicion.y + 2), (posicion.x + 1)));
+            if (!ocupada) {
+                movidas.add(new Point((posicion.x + 1), (posicion.y + 2)));
+            }
+        }
+        return movidas;
     }
 
     void setUtilidad(Double utilidad) {
