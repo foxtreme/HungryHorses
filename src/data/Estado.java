@@ -87,7 +87,8 @@ public class Estado {
     }
 
     public Estado() {
-
+        this.puntosA = 0.0;
+        this.puntosB = 0.0;
     }
 
     Estado resultado(Point accion) {
