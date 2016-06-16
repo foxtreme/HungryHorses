@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 /**
  *
@@ -241,7 +241,7 @@ public class Estado {
         return inicial;
     }
     
-    void imprimirTablero(Estado estado){
+    public void imprimirTablero(Estado estado){
         int [][] tablero = estado.getTablero();
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
@@ -249,6 +249,13 @@ public class Estado {
             }
             System.out.println();
         }
+        System.out.println("posBlanco: "+estado.getPosB());
+        System.out.println("posNegro: "+estado.getPosA());
+        System.out.println("ptsBlanco: "+estado.getPuntosB());
+        System.out.println("ptsNegro: "+estado.getPuntosA());
+        System.out.println("utilidad: "+estado.calcularUtilidad());
+        System.out.println("profundidad: "+estado.getProfundidad());
+        System.out.println("turno (1) blanco (2) negro: "+estado.getTurno());
     }
 
     void setUtilidad(Double utilidad) {
@@ -272,8 +279,9 @@ public class Estado {
     }
     
     public static void main(String args[]){
-        Estado e = new Estado();
-        Estado inicial = e.crearEstadoInicial(8);
-        e.imprimirTablero(inicial);
+        Estado objEstado = new Estado();
+        Estado inicial = objEstado.crearEstadoInicial(8);
+        objEstado.imprimirTablero(inicial);
+        
     }
 }
