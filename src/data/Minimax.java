@@ -94,5 +94,12 @@ public class Minimax {
 
         return utilidad;
     }
+    
+    public static void main(String args[]){
+        Estado inicial = Estado.crearEstadoInicial(8);
+        Minimax m = new Minimax(inicial,2);
+        m.decision(inicial,2);
+        System.out.println("la jugada de blanco es: ");
+    }
 
 }
