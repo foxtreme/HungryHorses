@@ -193,7 +193,7 @@ public class Estado {
         return movidas;
     }
     
-    public Estado crearEstadoInicial(int tamanio){
+    public static Estado crearEstadoInicial(int tamanio){
         List casillas = new ArrayList<Point>();
         Point posA = new Point();//caballo negro
         Point posB = new Point();//caballo blanco
