@@ -3,6 +3,10 @@ package view;
 import data.Estado;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Point;
+import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 
 public class Interfaz extends javax.swing.JFrame {
@@ -10,6 +14,8 @@ public class Interfaz extends javax.swing.JFrame {
     private int filas = 8;
     private int columnas = 8;
     private GridLayout cuadricula1;
+    Estado raiz= Estado.crearEstadoInicial(filas);
+
 
     public Interfaz() {
         initComponents();
@@ -18,7 +24,6 @@ public class Interfaz extends javax.swing.JFrame {
         comboDificultad.addItem("Normal");
         comboDificultad.addItem("Dificil");
 
-        Estado raiz= Estado.crearEstadoInicial(filas);
         
        cuadricula1 = new GridLayout(filas, columnas, 5, 5); 
        panelMatriz.setLayout(cuadricula1);
@@ -69,7 +74,7 @@ public class Interfaz extends javax.swing.JFrame {
             case 4://flor
                 return Color.RED;
             default:
-                return Color.DARK_GRAY;
+                return Color.BLUE;
         }
     }
 
@@ -92,7 +97,7 @@ public class Interfaz extends javax.swing.JFrame {
         panelMatriz.setLayout(panelMatrizLayout);
         panelMatrizLayout.setHorizontalGroup(
             panelMatrizLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
         panelMatrizLayout.setVerticalGroup(
             panelMatrizLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,6 +110,11 @@ public class Interfaz extends javax.swing.JFrame {
         dificultado.setText("Selecciona una dificultad");
 
         inicio.setText("Iniciar");
+        inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inicioActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Puntaje Actual: ");
 
@@ -117,9 +127,9 @@ public class Interfaz extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelMatriz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -130,9 +140,9 @@ public class Interfaz extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -160,18 +170,41 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
+        // TODO add your handling code here:
+        
+        Point accion = new Point(5,6);
+        final Estado nuevo = raiz.resultado(accion);
+        
+        
+                Thread hilo=new Thread(){
+                public void run(){
+                   
+                        try {
+                            mostrar(nuevo.getTablero());
+                            sleep(500);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    
+                }
+            };
+            hilo.start(); 
+
+    }//GEN-LAST:event_inicioActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run() 
+            {
                 new Interfaz().setVisible(true);
             }
-        });
-    
-    
+        });    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

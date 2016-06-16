@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 
-/**
- *
- * @author ''Steven''
- */
 public class Estado {
 
     private int[][] tablero;
@@ -91,7 +87,7 @@ public class Estado {
         this.puntosB = 0.0;
     }
 
-    Estado resultado(Point accion) {
+   public Estado resultado(Point accion) {
         Estado proximo = new Estado();
         int tamanio = this.tablero.length;
         Double puntos = 0.0;
@@ -131,7 +127,7 @@ public class Estado {
         return proximo;
     }
 
-    List movidasValidas() {
+    public List movidasValidas() {
         List movidas = new ArrayList<Point>();
         Point posicion = new Point();
         Point posicionOponente = new Point();
@@ -259,17 +255,17 @@ public class Estado {
         System.out.println("turno (1) blanco (2) negro: "+estado.getTurno());
     }
 
-    void setUtilidad(Double utilidad) {
+    public void setUtilidad(Double utilidad) {
         this.utilidad = utilidad;
     }
 
-    Double calcularUtilidad() {
+    public Double calcularUtilidad() {
         return (Double) this.puntosB - this.puntosA;
     }
 
     
     
-    boolean terminal(int limite) {
+    public boolean terminal(int limite) {
         boolean seAcaba = false;
 
         if (((35 - puntosA - puntosB) == 0) || (profundidad > limite)) {

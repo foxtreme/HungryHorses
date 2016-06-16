@@ -26,9 +26,9 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelMatriz" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="titulo" pref="197" max="32767" attributes="0"/>
+                  <Component id="titulo" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -37,15 +37,15 @@
                               <Component id="labelPuntos" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="dificultado" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="comboDificultad" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                                  <Component id="inicio" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Component id="inicio" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Component id="comboDificultad" min="-2" pref="141" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="428" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="410" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -122,6 +122,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Iniciar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inicioActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
