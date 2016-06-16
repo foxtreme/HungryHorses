@@ -3,6 +3,8 @@ package data;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -190,6 +192,64 @@ public class Estado {
         }
         return movidas;
     }
+    
+    public Estado crearEstadoInicial(int tamanio){
+        List casillas = new ArrayList<Point>();
+        Point posA = new Point();//caballo negro
+        Point posB = new Point();//caballo blanco
+        Double puntosA = 0.0;
+        Double puntosB = 0.0;
+        Double utilidad = Double.NEGATIVE_INFINITY;
+        int turno = 1;
+        int profundidad = 0;
+        int [][] tablero = new int[tamanio][tamanio];
+        //lleno el arreglo de indices y el tablero por defecto        
+        for(int fila=0; fila<tamanio; fila++){
+            for(int col=0;col<tamanio;col++){
+                Point casilla = new Point(fila,col);
+                casillas.add(casilla);
+                tablero[fila][col]=0;
+            }
+        }
+        //ubicar las figuras
+        for(int i=0;i<27;i++){
+            int max = casillas.size();
+            Random rand = new Random(System.currentTimeMillis());
+            int idx = rand.nextInt(max);
+            Point figura = (Point)casillas.get(idx);
+            if(i<20){//cesped
+                tablero[figura.x][figura.y]=3;
+            }
+            if(i>=20 && i<25){//flores
+                tablero[figura.x][figura.y]=4;
+            }
+            if(i==25){
+                tablero[figura.x][figura.y]=1;//caballo blanco
+                posB.setLocation(figura.x, figura.y);
+            }
+            if(i==26){
+                tablero[figura.x][figura.y]=2;//caballo negro
+                posA.setLocation(figura.x, figura.y);
+            }
+            casillas.remove(idx);
+        }
+        
+        Estado inicial = new Estado(turno, tablero, posB,posA,  puntosB, puntosA);
+        inicial.setProfundidad(profundidad);
+        inicial.setUtilidad(utilidad);
+        
+        return inicial;
+    }
+    
+    void imprimirTablero(Estado estado){
+        int [][] tablero = estado.getTablero();
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                System.out.print(tablero[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
 
     void setUtilidad(Double utilidad) {
         this.utilidad = utilidad;
@@ -199,6 +259,8 @@ public class Estado {
         return (Double) this.puntosB - this.puntosA;
     }
 
+    
+    
     boolean terminal(int limite) {
         boolean seAcaba = false;
 
@@ -207,5 +269,11 @@ public class Estado {
         }
 
         return seAcaba;
+    }
+    
+    public static void main(String args[]){
+        Estado e = new Estado();
+        Estado inicial = e.crearEstadoInicial(8);
+        e.imprimirTablero(inicial);
     }
 }
