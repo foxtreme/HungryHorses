@@ -31,9 +31,8 @@ public class Minimax {
         this.profundidad = profundidad;
     }
 
-    public Minimax(Estado actual, int profundidad) {
+    public Minimax(Estado actual) {
         this.actual = actual;
-        this.profundidad = profundidad;
     }
 
     public void decision(Estado actual, int limite) {
@@ -95,9 +94,9 @@ public class Minimax {
     public static void main(String args[]){
         Estado inicial = Estado.crearEstadoInicial(8);
         Estado.imprimirTablero(inicial);
-        Minimax m = new Minimax(inicial,2);
+        Minimax m = new Minimax(inicial);
         
-        m.decision(inicial,2);
+        m.decision(inicial,6);
         Point movida = m.getMovida();
         System.out.println("la jugada de blanco es: "+movida.toString());
         
