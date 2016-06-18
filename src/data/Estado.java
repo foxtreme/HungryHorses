@@ -189,6 +189,14 @@ public class Estado {
         return movidas;
     }
     
+    /**
+     * Verifica si un movimiento a la posicion x,y esta en el tablero
+     * y no esta ocupado por el oponente
+     * @param x fila de la matrix
+     * @param y columna de la matrix
+     * @param posicionOponente lugar del oponente
+     * @return null si no se puede, y Point si se puede
+     */
     private Point verificarMovimiento(int x, int y, Point posicionOponente){
         Point movimiento = null;
         if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
@@ -200,6 +208,11 @@ public class Estado {
         return movimiento;
     }
     
+    /**
+     * Crea el estado inicial del problema aleatoriamente
+     * @param tamanio el tamanio del tablero
+     * @return el estado inicial
+     */
     public static Estado crearEstadoInicial(int tamanio){
         List casillas = new ArrayList<Point>();
         Point posA = new Point();//caballo negro
@@ -222,8 +235,8 @@ public class Estado {
         for(int i=0;i<27;i++){
             int max = casillas.size();
             Random rand = new Random(System.currentTimeMillis());
-            int idx = rand.nextInt(max);
-            Point figura = (Point)casillas.get(idx);
+            int idx = rand.nextInt(max);//indice al asar
+            Point figura = (Point)casillas.get(idx);//coordenada x,y del tablero al azar
             if(i<20){//cesped
                 tablero[figura.x][figura.y]=3;
             }
@@ -238,7 +251,7 @@ public class Estado {
                 tablero[figura.x][figura.y]=2;//caballo negro
                 posA.setLocation(figura.x, figura.y);
             }
-            casillas.remove(idx);
+            casillas.remove(idx);//retiro el indice que acabe de escoger para evitarlo
         }
         
         Estado inicial = new Estado(turno, tablero, posB,posA,  puntosB, puntosA);
@@ -248,7 +261,7 @@ public class Estado {
         return inicial;
     }
     
-    public void imprimirTablero(Estado estado){
+    static public void imprimirTablero(Estado estado){
         int [][] tablero = estado.getTablero();
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
@@ -270,7 +283,9 @@ public class Estado {
     }
 
     public Double calcularUtilidad() {
-        return (Double) this.puntosB - this.puntosA;
+        Double utilidad = (Double) this.puntosB - this.puntosA;
+        this.utilidad = utilidad;
+        return utilidad;
     }
 
     
@@ -278,21 +293,19 @@ public class Estado {
     public boolean terminal(int limite) {
         boolean seAcaba = false;
 
-        if (((35 - puntosA - puntosB) == 0) || (profundidad > limite)) {
+        if ((profundidad >= limite)) {
             seAcaba = true;
+            return seAcaba;
+        }else{
+            if((35 - puntosA - puntosB) == 0){
+                seAcaba = true;
+                return seAcaba;
+            }else{
+                return seAcaba;
+            }
+                
         }
-
-        return seAcaba;
+        
     }
     
-    
-    public static void main(String args[]){
-        Estado objEstado = new Estado();
-        Estado inicial = objEstado.crearEstadoInicial(8);
-        objEstado.imprimirTablero(inicial);
-        List acciones = inicial.movidasValidas();
-        for(int i=0;i<acciones.size();i++){
-            System.out.println(acciones.get(i).toString());
-        }
-    }
 }

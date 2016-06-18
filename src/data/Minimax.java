@@ -58,14 +58,11 @@ public class Minimax {
 
     public Double valorMax(Estado actual, int limite) {
         Double utilidad = Double.NEGATIVE_INFINITY;
-        List acciones = new ArrayList<Point>();
-        Point accionRep;
         if (actual.terminal(limite)) {
-            utilidad = actual.calcularUtilidad();
-        } else {
-            actual.setUtilidad(Double.NEGATIVE_INFINITY);
-        }
-        acciones = actual.movidasValidas();
+            return actual.calcularUtilidad();
+        } 
+        List acciones = actual.movidasValidas();
+        Point accionRep;
         Iterator it = acciones.iterator();
         while (it.hasNext()) {
             Object accion = it.next();
@@ -77,21 +74,17 @@ public class Minimax {
 
     public double valorMin(Estado actual, int limite) {
         Double utilidad = Double.POSITIVE_INFINITY;
-        List acciones = new ArrayList<Point>();
-        Point accionRep;
         if (actual.terminal(limite)) {
-            utilidad = actual.calcularUtilidad();
-        } else {
-            actual.setUtilidad(Double.POSITIVE_INFINITY);
-        }
-        acciones = actual.movidasValidas();
+            return actual.calcularUtilidad();
+        } 
+        List acciones = actual.movidasValidas();
+        Point accionRep;
         Iterator it = acciones.iterator();
         while (it.hasNext()) {
             Object accion = it.next();
             accionRep = (Point) accion;
-            utilidad = Math.min(utilidad, valorMin(actual.resultado(accionRep), limite));
+            utilidad = Math.min(utilidad, valorMax(actual.resultado(accionRep), limite));
         }
-
         return utilidad;
     }
     
@@ -101,11 +94,13 @@ public class Minimax {
     
     public static void main(String args[]){
         Estado inicial = Estado.crearEstadoInicial(8);
+        Estado.imprimirTablero(inicial);
         Minimax m = new Minimax(inicial,2);
         
         m.decision(inicial,2);
         Point movida = m.getMovida();
-        System.out.println("la jugada de blanco es: "+m.toString());
+        System.out.println("la jugada de blanco es: "+movida.toString());
+        
     }
 
     
