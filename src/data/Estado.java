@@ -143,69 +143,78 @@ public class Estado {
         //posiciones
         int x = posicion.x - 2;
         int y = posicion.y -1;
-        if((x >= 0) && (x<=7)){
-            boolean ocupada = (posicionOponente.distance(new Point((posicion.x - 2), (posicion.y - 1)))) == 0; 
+        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
+            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
             System.out.println(ocupada);
-            System.out.println("arriba izq "+x+","+y);
             if (!ocupada) {
                 movidas.add(new Point(x, y));
+                System.out.println("arriba izq "+x+","+y);
             }
         }
-        /*
-        if ((((posicion.x)-2)>-1) && (((posicion.x)-2)<8) && (((posicion.y)-1)>-1) && (((posicion.y)-1)<8))  {//arriba izq
-            boolean ocupada = (posicionOponente.distance(new Point((posicion.x - 2), (posicion.y - 1)))) == 0; 
+        y = posicion.y+1;
+        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
+            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
             System.out.println(ocupada);
             if (!ocupada) {
-                movidas.add(new Point(((posicion.x)-2), ((posicion.y)-1)));
-            }
-        }*/
-        if ((((posicion.x)-2)>-1) && (((posicion.x)-2)<8) && (((posicion.y)+1)>-1) && (((posicion.y)+1)<8)) {//arriba der
-            boolean ocupada = (posicionOponente.distance(new Point((posicion.x - 2), (posicion.y + 1)))) == 0; 
-            System.out.println(ocupada);
-            if (!ocupada) {
-                movidas.add(new Point(((posicion.x) - 2), ((posicion.y) + 1)));
+                movidas.add(new Point(x, y));
+                System.out.println("arriba der "+x+","+y);
             }
         }
-        if ((((posicion.x)+2)>-1) && (((posicion.x)+2)<8) && (((posicion.y)-1)>-1) && (((posicion.y)-1)<8)) {//abajo izq
-            boolean ocupada = (posicionOponente.distance(new Point(((posicion.x)+2), ((posicion.y)-1)))) == 0; 
+        x = posicion.x+2;
+        y = posicion.y-1;
+        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
+            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
             System.out.println(ocupada);
             if (!ocupada) {
-                movidas.add(new Point(((posicion.x) - 2), ((posicion.y)-1)));
+                movidas.add(new Point(x, y));
+                System.out.println("abajo izq "+x+","+y);
             }
         }
-        if ((((posicion.x)+2)>-1) && (((posicion.x)+2)<8) && (((posicion.y)+1)>-1) &&(((posicion.y)+1)<8)) {//abajo der
-            boolean ocupada = (posicionOponente.distance(new Point((posicion.x + 2), (posicion.y + 1)))) == 0; 
+        y = posicion.y+1;
+        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
+            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
             System.out.println(ocupada);
             if (!ocupada) {
-                movidas.add(new Point(((posicion.x)-2), ((posicion.y)-1)));
+                movidas.add(new Point(x, y));
+                System.out.println("abajo der "+x+","+y);
             }
         }
-        if ((((posicion.y)-2)>-1) && (((posicion.y)-2)<8) && (((posicion.x)-1)>-1) && (((posicion.x)-1)<8)) {//izq arriba
-            boolean ocupada = (posicionOponente.distance(new Point(((posicion.x) - 1), (posicion.y - 2)))) == 0; 
+        x = posicion.x-1;
+        y = posicion.y-2;
+        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
+            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
             System.out.println(ocupada);
             if (!ocupada) {
-                movidas.add(new Point(((posicion.x)-1), ((posicion.y)- 2)));
+                movidas.add(new Point(x, y));
+                System.out.println("izq arriba "+x+","+y);
             }
         }
-        if ((((posicion.y)-2)>-1) && (((posicion.y)-2)<8) && (((posicion.x)+1)>-1) && (((posicion.x)+1)<8)) {//izq abajo
-            boolean ocupada = (posicionOponente.distance(new Point( (posicion.x + 1),(posicion.y - 2)))) == 0; 
+        x = posicion.x+1;
+        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
+            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
             System.out.println(ocupada);
             if (!ocupada) {
-                movidas.add(new Point(((posicion.x)+ 1), ((posicion.y)-2)));
+                movidas.add(new Point(x, y));
+                System.out.println("izq abajo "+x+","+y);
             }
         }
-        if ((((posicion.y)+2)>-1) &&(((posicion.y)+2)<8) && (((posicion.x)-1)>-1) && (((posicion.x)-1)<8)) {//der arriba
-            boolean ocupada = (posicionOponente.distance(new Point((posicion.x - 1), (posicion.y + 2)))) == 0; 
+        x = posicion.x-1;
+        y = posicion.y+2;
+        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
+            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
             System.out.println(ocupada);
             if (!ocupada) {
-                movidas.add(new Point(((posicion.x)- 1), ((posicion.y)+ 2)));
+                movidas.add(new Point(x, y));
+                System.out.println("der arriba "+x+","+y);
             }
         }
-        if ((((posicion.y)+2)>-1) && (((posicion.y)+2)<8) && (((posicion.x)+1)>-1) &&(((posicion.x)+1)<8)) {//der abajo
-            boolean ocupada = (posicionOponente.distance(new Point((posicion.x + 1), (posicion.y + 2)))) == 0; 
+        x = posicion.x+1;
+        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
+            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
             System.out.println(ocupada);
             if (!ocupada) {
-                movidas.add(new Point(((posicion.x) + 1), ((posicion.y) + 2)));
+                movidas.add(new Point(x, y));
+                System.out.println("der abajo "+x+","+y);
             }
         }
         return movidas;
