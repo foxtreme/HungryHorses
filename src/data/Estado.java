@@ -129,7 +129,8 @@ public class Estado {
     }
 
     public List movidasValidas() {
-        List movidas = new ArrayList<Point>();
+        
+        List movidas = new ArrayList<>();
         Point posicion = new Point();
         Point posicionOponente = new Point();
         if (this.turno == 1) {//blanco
@@ -141,83 +142,62 @@ public class Estado {
             posicionOponente.setLocation(this.posB.x, this.posB.y);
         }
         //posiciones
+        //-------arriba izq
         int x = posicion.x - 2;
         int y = posicion.y -1;
-        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
-            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
-            System.out.println(ocupada);
-            if (!ocupada) {
-                movidas.add(new Point(x, y));
-                System.out.println("arriba izq "+x+","+y);
-            }
-        }
+        Point movida = verificarMovimiento(x,y,posicionOponente);
+        if(movida!=null){movidas.add(movida);}
+        //-------arriba der
         y = posicion.y+1;
-        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
-            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
-            System.out.println(ocupada);
-            if (!ocupada) {
-                movidas.add(new Point(x, y));
-                System.out.println("arriba der "+x+","+y);
-            }
-        }
+        movida = null;//se resetea la movida para verificar el sgte movimiento
+        movida = verificarMovimiento(x,y,posicionOponente);
+        if(movida!=null){movidas.add(movida);}
+        //-------abajo izq
         x = posicion.x+2;
         y = posicion.y-1;
-        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
-            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
-            System.out.println(ocupada);
-            if (!ocupada) {
-                movidas.add(new Point(x, y));
-                System.out.println("abajo izq "+x+","+y);
-            }
-        }
+        movida = null;//se resetea la movida para verificar el sgte movimiento
+        movida = verificarMovimiento(x,y,posicionOponente);
+        if(movida!=null){movidas.add(movida);}
+        //-------abajo der
         y = posicion.y+1;
-        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
-            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
-            System.out.println(ocupada);
-            if (!ocupada) {
-                movidas.add(new Point(x, y));
-                System.out.println("abajo der "+x+","+y);
-            }
-        }
+        movida = null;//se resetea la movida para verificar el sgte movimiento
+        movida = verificarMovimiento(x,y,posicionOponente);
+        if(movida!=null){movidas.add(movida);}
+        //-------izq arriba
         x = posicion.x-1;
         y = posicion.y-2;
-        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
-            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
-            System.out.println(ocupada);
-            if (!ocupada) {
-                movidas.add(new Point(x, y));
-                System.out.println("izq arriba "+x+","+y);
-            }
-        }
+        movida = null;//se resetea la movida para verificar el sgte movimiento
+        movida = verificarMovimiento(x,y,posicionOponente);
+        if(movida!=null){movidas.add(movida);}
+        //-------izq abajo
         x = posicion.x+1;
-        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
-            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
-            System.out.println(ocupada);
-            if (!ocupada) {
-                movidas.add(new Point(x, y));
-                System.out.println("izq abajo "+x+","+y);
-            }
-        }
+        movida = null;//se resetea la movida para verificar el sgte movimiento
+        movida = verificarMovimiento(x,y,posicionOponente);
+        if(movida!=null){movidas.add(movida);}
+        //-------der arriba
         x = posicion.x-1;
         y = posicion.y+2;
-        if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
-            boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
-            System.out.println(ocupada);
-            if (!ocupada) {
-                movidas.add(new Point(x, y));
-                System.out.println("der arriba "+x+","+y);
-            }
-        }
+        movida = null;//se resetea la movida para verificar el sgte movimiento
+        movida = verificarMovimiento(x,y,posicionOponente);
+        if(movida!=null){movidas.add(movida);}
+        //-------der abajo
         x = posicion.x+1;
+        movida = null;//se resetea la movida para verificar el sgte movimiento
+        movida = verificarMovimiento(x,y,posicionOponente);
+        if(movida!=null){movidas.add(movida);}
+        
+        return movidas;
+    }
+    
+    private Point verificarMovimiento(int x, int y, Point posicionOponente){
+        Point movimiento = null;
         if((x >= 0) && (x<=7) && (y>=0) && (y<=7)){
             boolean ocupada = ((posicionOponente.distance(new Point(x, y))) == 0); 
-            System.out.println(ocupada);
             if (!ocupada) {
-                movidas.add(new Point(x, y));
-                System.out.println("der abajo "+x+","+y);
+                movimiento = new Point(x, y);
             }
         }
-        return movidas;
+        return movimiento;
     }
     
     public static Estado crearEstadoInicial(int tamanio){
@@ -304,6 +284,7 @@ public class Estado {
 
         return seAcaba;
     }
+    
     
     public static void main(String args[]){
         Estado objEstado = new Estado();
