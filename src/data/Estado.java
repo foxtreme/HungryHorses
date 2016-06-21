@@ -18,61 +18,35 @@ public class Estado {
     private int turno;
     private int profundidad;
 
-    public int getProfundidad() {
-        return profundidad;
-    }
+    public int getProfundidad() {        return profundidad;    }
 
-    public void setProfundidad(int profundidad) {
-        this.profundidad = profundidad;
-    }
+    public void setProfundidad(int profundidad) {   this.profundidad = profundidad;    }
 
-    public int getTurno() {
-        return turno;
-    }
+    public int getTurno() {        return turno;    }
 
-    public void setTurno(int turno) {
-        this.turno = turno;
-    }
+    public void setTurno(int turno) {        this.turno = turno;    }
 
-    public int[][] getTablero() {
-        return tablero;
-    }
+    public int[][] getTablero() {        return tablero;    }
 
-    public void setTablero(int[][] tablero) {
-        this.tablero = tablero;
-    }
+    public void setTablero(int[][] tablero) {        this.tablero = tablero;    }
 
-    public Point getPosB() {
-        return posB;
-    }
+    public Point getPosB() {        return posB;    }
 
-    public void setPosB(Point posB) {
-        this.posB = posB;
-    }
+    public void setPosB(Point posB) {        this.posB = posB;    }
 
-    public Point getPosA() {
-        return posA;
-    }
+    public Point getPosA() {        return posA;    }
 
-    public void setPosA(Point posA) {
-        this.posA = posA;
-    }
+    public void setPosA(Point posA) {        this.posA = posA;    }
 
-    public Double getPuntosB() {
-        return puntosB;
-    }
+    public Double getPuntosB() {        return puntosB;    }
+    
+    public void setPuntosB(Double puntosB) {        this.puntosB += puntosB;    }
 
-    public void setPuntosB(Double puntosB) {
-        this.puntosB += puntosB;
-    }
+    public Double getPuntosA() {        return puntosA;    }
 
-    public Double getPuntosA() {
-        return puntosA;
-    }
+    public void setPuntosA(Double puntosA) {        this.puntosA += puntosA;    }
 
-    public void setPuntosA(Double puntosA) {
-        this.puntosA += puntosA;
-    }
+    public void setUtilidad(Double utilidad) {        this.utilidad = utilidad;    }
 
     public Estado(int turno, int[][] tablero, Point posB, Point posA, Double puntosB, Double puntosA) {
         this.turno = turno;
@@ -223,20 +197,23 @@ public class Estado {
         int turno = 1;
         int profundidad = 0;
         int [][] tablero = new int[tamanio][tamanio];
+        
         //lleno el arreglo de indices y el tablero por defecto        
         for(int fila=0; fila<tamanio; fila++){
             for(int col=0;col<tamanio;col++){
-                Point casilla = new Point(fila,col);
-                casillas.add(casilla);
+                casillas.add(new Point(fila,col));
                 tablero[fila][col]=0;
             }
         }
         //ubicar las figuras
         for(int i=0;i<27;i++){
-            int max = casillas.size();
+            int max = casillas.size(); //desde 64 disminuyendo
             Random rand = new Random(System.currentTimeMillis());
-            int idx = rand.nextInt(max);//indice al asar
+            int idx = rand.nextInt(max);//indice al azar
+            //System.out.println("idx "+idx);
             Point figura = (Point)casillas.get(idx);//coordenada x,y del tablero al azar
+            //System.out.println("point "+figura);
+            
             if(i<20){//cesped
                 tablero[figura.x][figura.y]=3;
             }
@@ -278,9 +255,6 @@ public class Estado {
         System.out.println("turno (1) blanco (2) negro: "+estado.getTurno());
     }
 
-    public void setUtilidad(Double utilidad) {
-        this.utilidad = utilidad;
-    }
 
     public Double calcularUtilidad() {
         Double utilidad = (Double) this.puntosB - this.puntosA;
@@ -288,8 +262,6 @@ public class Estado {
         return utilidad;
     }
 
-    
-    
     public boolean terminal(int limite) {
         boolean seAcaba = false;
 
@@ -302,10 +274,8 @@ public class Estado {
                 return seAcaba;
             }else{
                 return seAcaba;
-            }
-                
-        }
-        
+            }   
+        }     
     }
     
 }

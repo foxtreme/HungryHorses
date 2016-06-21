@@ -1,6 +1,6 @@
 package view;
-
 import data.Estado;
+import data.Minimax;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -14,6 +14,7 @@ public class Interfaz extends javax.swing.JFrame {
     private int filas = 8;
     private int columnas = 8;
     private GridLayout cuadricula1;
+    
     Estado raiz= Estado.crearEstadoInicial(filas);
 
 
@@ -46,7 +47,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
     
     
-        public void mostrar(int[][] matriz) {
+    public void mostrar(int[][] matriz) {
         int z = 0;
         for (int i = 0; i < matriz.length; i++) 
         {
@@ -77,7 +78,6 @@ public class Interfaz extends javax.swing.JFrame {
                 return Color.BLUE;
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -172,10 +172,15 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         // TODO add your handling code here:
+        Estado.imprimirTablero(raiz);
+        Minimax mov = new Minimax(raiz);
         
-        Point accion = new Point(5,6);
-        final Estado nuevo = raiz.resultado(accion);
-        
+        mov.decision(raiz,6);
+        Point movida = mov.getMovida();
+        System.out.println("la jugada de blanco es: "+movida.toString());
+            
+       // Point accion = new Point(5,6);
+        final Estado nuevo = raiz.resultado(movida); 
         
                 Thread hilo=new Thread(){
                 public void run(){

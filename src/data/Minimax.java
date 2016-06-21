@@ -15,26 +15,19 @@ public class Minimax {
     private int profundidad;
     private Point movida;
 
-    public Estado getActual() {
-        return actual;
-    }
+    public Estado getActual() {        return actual;    }
 
-    public void setActual(Estado actual) {
-        this.actual = actual;
-    }
+    public void setActual(Estado actual) {        this.actual = actual;    }
 
-    public int getProfundidad() {
-        return profundidad;
-    }
+    public int getProfundidad() {        return profundidad;    }
 
-    public void setProfundidad(int profundidad) {
-        this.profundidad = profundidad;
-    }
+    public void setProfundidad(int profundidad) {        this.profundidad = profundidad;    }
 
-    public Minimax(Estado actual) {
-        this.actual = actual;
-    }
+    public Point getMovida() {        return movida;    }
 
+    public Minimax(Estado actual) {        this.actual = actual;    }
+    
+    
     public void decision(Estado actual, int limite) {
         Point decision = new Point();
         List acciones = actual.movidasValidas();
@@ -87,11 +80,7 @@ public class Minimax {
         return utilidad;
     }
     
-    public Point getMovida() {
-        return movida;
-    }
-    
-    public static void main(String args[]){
+    /*public static void main(String args[]){
         Estado inicial = Estado.crearEstadoInicial(8);
         Estado.imprimirTablero(inicial);
         Minimax m = new Minimax(inicial);
@@ -100,8 +89,6 @@ public class Minimax {
         Point movida = m.getMovida();
         System.out.println("la jugada de blanco es: "+movida.toString());
         
-    }
-
-    
+    }*/
 
 }
