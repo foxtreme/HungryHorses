@@ -204,7 +204,7 @@ public class Estado {
                 casillas.add(new Point(fila,col));
                 tablero[fila][col]=0;
             }
-        }
+        } 
         //ubicar las figuras
         for(int i=0;i<27;i++){
             int max = casillas.size(); //desde 64 disminuyendo
