@@ -160,6 +160,7 @@ public class Estado {
         movida = verificarMovimiento(x,y,posicionOponente);
         if(movida!=null){movidas.add(movida);}
         
+        
         return movidas;
     }
     

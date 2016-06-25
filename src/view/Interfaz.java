@@ -14,8 +14,11 @@ public class Interfaz extends javax.swing.JFrame {
     private int filas = 8;
     private int columnas = 8;
     private GridLayout cuadricula1;
-    
+    int nivel=0, contador=0;
     Estado raiz= Estado.crearEstadoInicial(filas);
+    Point v = new Point(0, 0);
+    Estado Nuevo=raiz.resultado(v); 
+
 
 
     public Interfaz() {
@@ -24,8 +27,6 @@ public class Interfaz extends javax.swing.JFrame {
         comboDificultad.addItem("Facil");
         comboDificultad.addItem("Normal");
         comboDificultad.addItem("Dificil");
-
-        
        cuadricula1 = new GridLayout(filas, columnas, 5, 5); 
        panelMatriz.setLayout(cuadricula1);
        
@@ -42,7 +43,7 @@ public class Interfaz extends javax.swing.JFrame {
                
         this.setResizable(false);
         this.setVisible(true);
-
+        inicio.setVisible(false);
         mostrar (raiz.getTablero());
     }
     
@@ -64,7 +65,7 @@ public class Interfaz extends javax.swing.JFrame {
         
         switch (tipo) 
         {
-            case 0: //limpio
+            case 0: //limpio    
                 return Color.BLUE;
             case 1://caballo blanco
                 return Color.WHITE;
@@ -88,6 +89,8 @@ public class Interfaz extends javax.swing.JFrame {
         dificultado = new javax.swing.JLabel();
         comboDificultad = new javax.swing.JComboBox<String>();
         inicio = new javax.swing.JButton();
+        juegoNuevo = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         labelPuntos = new javax.swing.JLabel();
 
@@ -104,21 +107,57 @@ public class Interfaz extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        titulo.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        titulo.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         titulo.setText("Hungry Horses V 1.0");
 
         dificultado.setText("Selecciona una dificultad");
 
-        inicio.setText("Iniciar");
+        comboDificultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDificultadActionPerformed(evt);
+            }
+        });
+
+        inicio.setText("Jugador 1");
         inicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inicioActionPerformed(evt);
             }
         });
 
+        juegoNuevo.setText("Nuevo Juego");
+        juegoNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                juegoNuevoActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         jLabel1.setText("Puntaje Actual: ");
 
         labelPuntos.setText("0");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(labelPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPuntos)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,23 +166,28 @@ public class Interfaz extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelMatriz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelPuntos))
-                            .addComponent(dificultado)
+                                .addGap(128, 128, 128)
+                                .addComponent(dificultado))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 10, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGap(70, 70, 70)
+                                .addComponent(juegoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(57, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,17 +197,17 @@ public class Interfaz extends javax.swing.JFrame {
                     .addComponent(panelMatriz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(juegoNuevo)
+                        .addGap(44, 44, 44)
                         .addComponent(dificultado)
-                        .addGap(18, 18, 18)
-                        .addComponent(inicio)
-                        .addGap(29, 29, 29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(labelPuntos))
-                        .addGap(0, 151, Short.MAX_VALUE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(inicio)
+                        .addGap(31, 31, 31)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 114, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -171,32 +215,121 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-        // TODO add your handling code here:
-        Estado.imprimirTablero(raiz);
-        Minimax mov = new Minimax(raiz);
-        
-        mov.decision(raiz,6);
-        Point movida = mov.getMovida();
-        System.out.println("la jugada de blanco es: "+movida.toString());
-            
-       // Point accion = new Point(5,6);
-        final Estado nuevo = raiz.resultado(movida); 
-        
-                Thread hilo=new Thread(){
-                public void run(){
-                   
-                        try {
-                            mostrar(nuevo.getTablero());
-                            sleep(500);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    
-                }
-            };
-            hilo.start(); 
+         Estado.imprimirTablero(raiz);
+            Minimax mov = new Minimax(raiz);
+            mov.decisionMx(raiz,2); 
+            Point movida = mov.getMovida();
+            System.out.println("la jugada de blanco es: "+movida.toString());
 
+                    Nuevo = raiz.resultado(movida); 
+                    int ax= (int)movida.getX();
+                    int ay= (int)movida.getX();
+                    Thread hilo=new Thread(){
+                    public void run(){
+
+                            try {
+                                mostrar(Nuevo.getTablero());
+                                sleep(500);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                    }
+                };
+                hilo.start(); 
+                contador +=1;
+                Estado.imprimirTablero(Nuevo);
+                Minimax movN = new Minimax(Nuevo);
+                mov.decisionMn(Nuevo,nivel);
+                Point movidaN = movN.getMovida();
+                movidaN = movN.getMovida();
+                System.out.println("la jugada de negro es: "+movidaN.toString());
+
+
+        /*comboDificultad.setVisible(false);
+        
+        if(contador==0)
+        {   
+            Estado.imprimirTablero(raiz);
+            Minimax mov = new Minimax(raiz);
+            
+            if(comboDificultad.getSelectedItem()=="Facil"){ mov.decisionMx(raiz,2); nivel=2; }
+            else if(comboDificultad.getSelectedItem()=="Normal"){ mov.decisionMx(raiz,4); nivel=4; }
+            else if(comboDificultad.getSelectedItem()=="Dificil"){ mov.decisionMx(raiz,6); nivel=6; }
+            Point movida = mov.getMovida();
+            System.out.println("la jugada de blanco es: "+movida.toString());
+
+                    Nuevo = raiz.resultado(movida); 
+                    int ax= (int)movida.getX();
+                    int ay= (int)movida.getX();
+                    Thread hilo=new Thread(){
+                    public void run(){
+
+                            try {
+                                mostrar(Nuevo.getTablero());
+                                sleep(500);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                    }
+                };
+                hilo.start(); 
+                contador +=1;
+                Estado.imprimirTablero(Nuevo);
+                Minimax movN = new Minimax(Nuevo);
+                mov.decisionMn(Nuevo,nivel);
+                Point movidaN = movN.getMovida();
+                movidaN = movN.getMovida();
+                System.out.println("la jugada de negro es: "+movidaN.toString());
+
+
+
+       }
+        else if (contador>0)
+        {
+            Estado.imprimirTablero(Nuevo);
+            Minimax mov = new Minimax(Nuevo);
+            mov.decisionMx(Nuevo,nivel); 
+            Point movida = mov.getMovida();
+            System.out.println("la jugada de blanco es: "+movida.toString());
+
+            Nuevo = raiz.resultado(movida); 
+
+                    Thread hilo=new Thread(){
+                    public void run(){
+
+                            try {
+                                mostrar(Nuevo.getTablero());
+                                sleep(500);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                    }
+                };
+                hilo.start();      
+                
+         }*/
     }//GEN-LAST:event_inicioActionPerformed
+
+    private void juegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juegoNuevoActionPerformed
+        comboDificultad.setVisible(true);
+
+        raiz= Estado.crearEstadoInicial(filas);
+        mostrar (raiz.getTablero());
+        comboDificultad.removeAllItems();
+        comboDificultad.addItem("Facil");
+        comboDificultad.addItem("Normal");
+        comboDificultad.addItem("Dificil");
+        inicio.setVisible(false);
+        
+        
+    }//GEN-LAST:event_juegoNuevoActionPerformed
+
+    private void comboDificultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDificultadActionPerformed
+                inicio.setVisible(true);
+    }//GEN-LAST:event_comboDificultadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,6 +350,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel dificultado;
     private javax.swing.JButton inicio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton juegoNuevo;
     private javax.swing.JLabel labelPuntos;
     private javax.swing.JPanel panelMatriz;
     private javax.swing.JLabel titulo;
