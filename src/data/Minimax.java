@@ -36,36 +36,43 @@ public class Minimax {
             accionRep = (Point) accion;
             Estado siguiente = actual.resultado(accionRep);
             Double utilidadSiguiente = valorMin(siguiente, limite);
-            if (utilidadSiguiente > utilidad) {
+            //if (utilidadSiguiente > utilidad) {
                 decision = accionRep;
                 utilidad = utilidadSiguiente;
-            }
+           // }
             System.out.println("accion max: " + decision.toString() + " utilidad: " + utilidad);
         }
         movida = decision;
     }
 
-    public void decisionMn(Estado actual, int limite) {
+    public Point [] decisionMn(Estado actual, int limite) {
         Point decision = new Point();
         List acciones = actual.movidasValidas();
         for(int j=0; j>acciones.size();j++){
             System.out.println(" movida "+acciones.get(j));
         }
+            
         Point accionRep;
         Double utilidad = Double.NEGATIVE_INFINITY;
         Iterator it = acciones.iterator();
+        Point [] puntos=new Point [acciones.size()];
+        int z=-1;
+        
         while (it.hasNext()) {
+            z=z+1;
             Object accion = it.next();
             accionRep = (Point) accion;
+            puntos [z]=accionRep;
             Estado siguiente = actual.resultado(accionRep);
             Double utilidadSiguiente = valorMax(siguiente, limite);
-            if (utilidadSiguiente > utilidad) {
-                decision = accionRep;
-                utilidad = utilidadSiguiente;
-            }
+            decision = accionRep;
+            utilidad = utilidadSiguiente;
             System.out.println("accion min: " + decision.toString() + " utilidad: " + utilidad);
         }
+        
         movida = decision;
+        
+        return puntos;
     }
 
     public Double valorMax(Estado actual, int limite) {
@@ -85,7 +92,7 @@ public class Minimax {
     }
 
     public double valorMin(Estado actual, int limite) {
-        Double utilidad = Double.POSITIVE_INFINITY;
+        Double utilidad2 = Double.POSITIVE_INFINITY;
         if (actual.terminal(limite)) {
             return actual.calcularUtilidad();
         } 
@@ -95,12 +102,12 @@ public class Minimax {
         while (it.hasNext()) {
             Object accion = it.next();
             accionRep = (Point) accion;
-            utilidad = Math.min(utilidad, valorMax(actual.resultado(accionRep), limite));
+            utilidad2 = Math.min(utilidad2, valorMax(actual.resultado(accionRep), limite));
         }
-        return utilidad;
+        return utilidad2;
     }
-    
-    public static void main(String args[]){
+}
+   /* public static void main(String args[]){
         Estado inicial = Estado.crearEstadoInicial(8);
         Estado.imprimirTablero(inicial);
         Minimax m = new Minimax(inicial);
@@ -111,4 +118,4 @@ public class Minimax {
         
     }
 
-}
+}*/

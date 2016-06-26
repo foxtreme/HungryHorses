@@ -265,8 +265,9 @@ public class Estado {
 
     public boolean terminal(int limite) {
         boolean seAcaba = false;
-
+            
         if ((profundidad >= limite)) {
+            //System.out.println("entro");
             seAcaba = true;
             return seAcaba;
         }else{
