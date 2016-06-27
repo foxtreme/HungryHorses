@@ -304,20 +304,21 @@ public class Interfaz extends javax.swing.JFrame {
             Point movida1 = mov1.getMovida();
             System.out.println("la jugada de negro es: "+movida1.toString());            
             z=punt.length;
+            int []valorz= new int[z];
 
             Component[] component1 = panelMatriz.getComponents();
-
             for (int i = 0; i < z; i++) {
             Point nuevop=punt[i];    
             int ax= (int)nuevop.getX();
             int ay= (int)nuevop.getY();
             mostrar1="["+ax+","+ay+"]";
             boton=((ax*8)+(ay));
+            valorz[i]=boton;
             System.out.println(" botones"+ boton);
             JButton button = (JButton)component1[boton];
             button.setText(mostrar1);
             
-            panelMatriz.getComponent(boton).setEnabled(true);
+           // panelMatriz.getComponent(boton).setEnabled(true);
             }
             
             inicio2.setVisible(true);
@@ -327,9 +328,10 @@ public class Interfaz extends javax.swing.JFrame {
             t2.setVisible(true);
 
                 
-                    
-            
-
+             for (int i = 0; i < z; i++) {         
+                 panelMatriz.getComponent(valorz[i]).setEnabled(true);
+             }
+       
        
     }//GEN-LAST:event_inicioActionPerformed
 
