@@ -1,5 +1,4 @@
 package data;
-
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -107,7 +106,9 @@ public class Minimax {
         return utilidad2;
     }
 }
-   /* public static void main(String args[]){
+   
+
+/* public static void main(String args[]){
         Estado inicial = Estado.crearEstadoInicial(8);
         Estado.imprimirTablero(inicial);
         Minimax m = new Minimax(inicial);

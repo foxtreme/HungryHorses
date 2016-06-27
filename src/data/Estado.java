@@ -1,11 +1,9 @@
 package data;
-
 import com.sun.org.apache.xalan.internal.xsltc.runtime.BasisLibrary;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 
 public class Estado {
 
@@ -57,10 +55,7 @@ public class Estado {
         this.puntosA = puntosA;
     }
 
-    public Estado() {
-        this.puntosA = 0.0;
-        this.puntosB = 0.0;
-    }
+    public Estado() {   this.puntosA = 0.0;     this.puntosB = 0.0;   }
 
    public Estado resultado(Point accion) {
         Estado proximo = new Estado();
