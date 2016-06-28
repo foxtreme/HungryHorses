@@ -9,6 +9,7 @@ import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Interfaz extends javax.swing.JFrame 
 {
@@ -17,7 +18,7 @@ public class Interfaz extends javax.swing.JFrame
     private GridLayout cuadricula1;
     int[][] miMatriz = new int[8][8];
     int [] botones = null;
-    int nivel=0, contador=0, z=0,boton=0;
+    int nivel=0, contador=0, z=0,boton=0,ax=0,ay=0;
     String mostrar1="";
     Point [] punt = null;
     Point v = new Point(0, 0);
@@ -27,7 +28,7 @@ public class Interfaz extends javax.swing.JFrame
     public Interfaz() 
     {
         initComponents();
-        
+        comboDificultad.addItem("");
         comboDificultad.addItem("Facil");
         comboDificultad.addItem("Normal");
         comboDificultad.addItem("Dificil");
@@ -202,8 +203,6 @@ public class Interfaz extends javax.swing.JFrame
 
         l2.setText("Fila");
 
-        t1.setText("  ");
-
         t2.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -285,13 +284,14 @@ public class Interfaz extends javax.swing.JFrame
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         
-        comboDificultad.setVisible(false);
+        comboDificultad.setEnabled(false);
         inicio2.setVisible(true);
         l1.setVisible(true);
         l2.setVisible(true);
         t1.setVisible(true);
         t2.setVisible(true);
-       
+        t1.setText("");
+        t2.setText("");
         if(comboDificultad.getSelectedItem()=="Facil"){  nivel=2; }
         else if(comboDificultad.getSelectedItem()=="Normal"){  nivel=4; }
         else if(comboDificultad.getSelectedItem()=="Dificil"){  nivel=6; }
@@ -332,12 +332,13 @@ public class Interfaz extends javax.swing.JFrame
             mostrar1="["+ax+","+ay+"]";
             boton=((ax*8)+(ay));
             valorz[i]=boton;
-            System.out.println(" botones"+ boton);
+//            System.out.println(" botones"+ boton);
             JButton button = (JButton)component1[boton];
             button.setText(mostrar1);    
         }             
-        
+        inicio.setVisible(false);
         for (int i = 0; i < z; i++) {panelMatriz.getComponent(valorz[i]).setEnabled(true);}
+        
        
     }//GEN-LAST:event_inicioActionPerformed
 
@@ -348,8 +349,9 @@ public class Interfaz extends javax.swing.JFrame
         mostrar (raiz.getTablero());
         
         limpiar();
-        comboDificultad.setVisible(true);
+        comboDificultad.setEnabled(true);
         comboDificultad.removeAllItems();
+        comboDificultad.addItem("");
         comboDificultad.addItem("Facil");
         comboDificultad.addItem("Normal");
         comboDificultad.addItem("Dificil");
@@ -364,14 +366,64 @@ public class Interfaz extends javax.swing.JFrame
     
     private void inicio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicio2ActionPerformed
 
-        inicio2.setVisible(false);
-        l1.setVisible(false);
-        l2.setVisible(false);
-        t1.setVisible(false);
-        t2.setVisible(false);
+
+        if((t1.getText().length() == 0)||(t2.getText().length() == 0)){
+            JOptionPane.showMessageDialog(null, "Debe ingresar la fila y la columna para jugar");
+        }
+        else{
+        String ex=t1.getText();
+        String ey=t2.getText();
         
-        limpiar();
+            
+        int entradax=Integer.parseInt(ex);
+        int entraday=Integer.parseInt(ey);
+        boolean val=false;
         
+        for (int i = 0; i < punt.length; i++) 
+        {
+            Point nuevop=punt[i];    
+            int axs= (int)nuevop.getX();
+            int ays= (int)nuevop.getY();
+
+            if((entradax==axs)&&(entraday==ays)){
+            ax=axs;
+            ay=ays;
+            val=true;
+            } 
+        }
+        
+        if(val){
+            
+            Point movidanueva=new Point(ax, ay);
+            raiz = Nuevo.resultado(movidanueva); 
+            Estado.imprimirTablero(raiz);
+            Thread hilo=new Thread()
+            {
+                public void run()
+                {
+                    try {
+                            mostrar(raiz.getTablero());
+                            sleep(500);
+                        } catch (InterruptedException ex) {      Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex); }
+                }
+            };
+            hilo.start(); 
+            inicio.setVisible(true);
+
+            t1.setText("");
+            t2.setText("");
+            inicio2.setVisible(false);
+            l1.setVisible(false);
+            l2.setVisible(false);
+            t1.setVisible(false);
+            t2.setVisible(false);
+            limpiar();
+        }
+        else{  JOptionPane.showMessageDialog(null, "Ingreso una jugada no valida");}
+            
+        
+     
+        }
     }//GEN-LAST:event_inicio2ActionPerformed
 
     private void comboDificultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDificultadActionPerformed

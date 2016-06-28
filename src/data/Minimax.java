@@ -35,10 +35,10 @@ public class Minimax {
             accionRep = (Point) accion;
             Estado siguiente = actual.resultado(accionRep);
             Double utilidadSiguiente = valorMin(siguiente, limite);
-            //if (utilidadSiguiente > utilidad) {
+            if (utilidadSiguiente > utilidad) {
                 decision = accionRep;
                 utilidad = utilidadSiguiente;
-           // }
+            }
             System.out.println("accion max: " + decision.toString() + " utilidad: " + utilidad);
         }
         movida = decision;
