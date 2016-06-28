@@ -71,7 +71,11 @@ public class Interfaz extends javax.swing.JFrame
             Component[] component = panelMatriz.getComponents();   
             JButton button = (JButton)component[i];
             button.setText("         ");
+            button.setEnabled(false);
         }
+        panelMatriz.getComponent(0).setEnabled(true);
+        panelMatriz.getComponent(0).setEnabled(false);
+        
     }
     
     public void mostrar(int[][] matriz) 
@@ -82,7 +86,7 @@ public class Interfaz extends javax.swing.JFrame
             for (int j = 0; j < matriz[i].length; j++) 
             {
                 panelMatriz.getComponent(h).setBackground(pintar(matriz[i][j]));
-                panelMatriz.getComponent(h).setEnabled(false);
+                //panelMatriz.getComponent(h).setEnabled(false);
                 h += 1;
             }
         }
@@ -283,7 +287,7 @@ public class Interfaz extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-        
+        limpiar();
         comboDificultad.setEnabled(false);
         inicio2.setVisible(true);
         l1.setVisible(true);
