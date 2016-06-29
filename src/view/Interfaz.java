@@ -3,7 +3,9 @@ import data.Estado;
 import data.Minimax;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Point;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
@@ -19,7 +21,7 @@ public class Interfaz extends javax.swing.JFrame
     int[][] miMatriz = new int[8][8];
     int [] botones = null;
     int nivel=0, contador=0, z=0,boton=0,ax=0,ay=0;
-    String mostrar1="";
+    String mostrar1="",coloricono="";
     Point [] punt = null;
     Point v = new Point(0, 0);
     Estado raiz= Estado.crearEstadoInicial(filas);
@@ -32,9 +34,7 @@ public class Interfaz extends javax.swing.JFrame
         comboDificultad.addItem("Facil");
         comboDificultad.addItem("Normal");
         comboDificultad.addItem("Dificil");
-        
-        cuadricula1 = new GridLayout(filas, columnas, 5, 5); 
-        
+        cuadricula1 = new GridLayout(filas, columnas, 5, 5);    
         panelMatriz.setLayout(cuadricula1);
        
         int w = 0;
@@ -47,11 +47,7 @@ public class Interfaz extends javax.swing.JFrame
                 w += 1;
             }
         }
-        
-        Component[] component = panelMatriz.getComponents();   
-        JButton button = (JButton)component[w-1];
-        button.setText("         ");
-  
+          
         this.setResizable(false);
         this.setVisible(true);
         inicio.setVisible(false);
@@ -70,11 +66,9 @@ public class Interfaz extends javax.swing.JFrame
         {
             Component[] component = panelMatriz.getComponents();   
             JButton button = (JButton)component[i];
-            button.setText("         ");
-            button.setEnabled(false);
+            button.setText("");
         }
-        panelMatriz.getComponent(0).setEnabled(true);
-        panelMatriz.getComponent(0).setEnabled(false);
+        
         
     }
     
@@ -86,23 +80,29 @@ public class Interfaz extends javax.swing.JFrame
             for (int j = 0; j < matriz[i].length; j++) 
             {
                 panelMatriz.getComponent(h).setBackground(pintar(matriz[i][j]));
-                //panelMatriz.getComponent(h).setEnabled(false);
+                Component[] component = panelMatriz.getComponents();   
+                JButton button = (JButton)component[h];
+                button.setIcon(new javax.swing.ImageIcon(getClass().getResource(pintarI(matriz[i][j]))));
+                Dimension panela= new Dimension(70,70);
+                button.setPreferredSize(panela);
+                button.setMargin(new Insets(0, 0, 0, 0));
+                button.setIconTextGap(-35);
+     
                 h += 1;
             }
         }
     }
     
     private Color pintar(int tipo) 
-    {
-        
+    {       
         switch (tipo) 
         {
             case 0: //limpio    
                 return Color.BLUE;
             case 1://caballo blanco
-                return Color.WHITE;
+                return Color.BLUE;
             case 2://caballo negro
-                return Color.BLACK;
+                return Color.BLUE;
             case 3://cesped
                 return Color.GREEN;
             case 4://flor
@@ -112,6 +112,25 @@ public class Interfaz extends javax.swing.JFrame
         }
     }
 
+    private String pintarI(int tipo) 
+    {     
+        switch (tipo) 
+        {
+            case 0: //limpio    
+                return coloricono="";
+            case 1://caballo blanco
+                return coloricono="/view/caballob.png";
+            case 2://caballo negro
+                return coloricono="/view/caballon.png";
+            case 3://cesped
+                return coloricono="/view/pasto.png";
+            case 4://flor
+                return coloricono="/view/flor.png";
+            default:
+                return coloricono="";
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -132,6 +151,8 @@ public class Interfaz extends javax.swing.JFrame
         t2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Juego de Caballos");
+        setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelMatrizLayout = new javax.swing.GroupLayout(panelMatriz);
         panelMatriz.setLayout(panelMatrizLayout);
@@ -265,7 +286,7 @@ public class Interfaz extends javax.swing.JFrame
                         .addComponent(comboDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(inicio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(l2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(t1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -335,10 +356,10 @@ public class Interfaz extends javax.swing.JFrame
             valorz[i]=boton;
 //            System.out.println(" botones"+ boton);
             JButton button = (JButton)component1[boton];
-            button.setText(mostrar1);    
+            button.setText(mostrar1);
+            
         }             
         inicio.setVisible(false);
-        for (int i = 0; i < z; i++) {panelMatriz.getComponent(valorz[i]).setEnabled(true);}
         
        
     }//GEN-LAST:event_inicioActionPerformed
