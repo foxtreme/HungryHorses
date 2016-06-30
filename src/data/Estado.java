@@ -16,35 +16,7 @@ public class Estado {
     private int turno;
     private int profundidad;
 
-    public int getProfundidad() {        return profundidad;    }
-
-    public void setProfundidad(int profundidad) {   this.profundidad = profundidad;    }
-
-    public int getTurno() {        return turno;    }
-
-    public void setTurno(int turno) {        this.turno = turno;    }
-
-    public int[][] getTablero() {        return tablero;    }
-
-    public void setTablero(int[][] tablero) {        this.tablero = tablero;    }
-
-    public Point getPosB() {        return posB;    }
-
-    public void setPosB(Point posB) {        this.posB = posB;    }
-
-    public Point getPosA() {        return posA;    }
-
-    public void setPosA(Point posA) {        this.posA = posA;    }
-
-    public Double getPuntosB() {        return puntosB;    }
     
-    public void setPuntosB(Double puntosB) {        this.puntosB += puntosB;    }
-
-    public Double getPuntosA() {        return puntosA;    }
-
-    public void setPuntosA(Double puntosA) {        this.puntosA += puntosA;    }
-
-    public void setUtilidad(Double utilidad) {        this.utilidad = utilidad;    }
 
     public Estado(int turno, int[][] tablero, Point posB, Point posA, Double puntosB, Double puntosA) {
         this.turno = turno;
@@ -58,9 +30,9 @@ public class Estado {
     public Estado() {   this.puntosA = 0.0;     this.puntosB = 0.0;   }
 
    public Estado resultado(Point accion) {
-        Estado proximo = new Estado();
-        int tamanio = this.tablero.length;
-        Double puntos = 0.0;
+        Estado proximo = new Estado();//crea el nuevo estado
+        int tamanio = this.tablero.length; //calcula el tamaño - 8
+        Double puntos = 0.0; //puntos para la jugada de este estado
         int[][] tablero = new int[tamanio][tamanio];
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
@@ -253,7 +225,7 @@ public class Estado {
 
 
     public Double calcularUtilidad() {
-        Double utilidad = (Double) this.puntosB - this.puntosA;
+        Double utilidad = (Double) this.puntosB - this.puntosA;//blanco - negro
         this.utilidad = utilidad;
         return utilidad;
     }
@@ -275,4 +247,33 @@ public class Estado {
         }     
     }
     
+    public int getProfundidad() {        return profundidad;    }
+
+    public void setProfundidad(int profundidad) {   this.profundidad = profundidad;    }
+
+    public int getTurno() {        return turno;    }
+
+    public void setTurno(int turno) {        this.turno = turno;    }
+
+    public int[][] getTablero() {        return tablero;    }
+
+    public void setTablero(int[][] tablero) {        this.tablero = tablero;    }
+
+    public Point getPosB() {        return posB;    }
+
+    public void setPosB(Point posB) {        this.posB = posB;    }
+
+    public Point getPosA() {        return posA;    }
+
+    public void setPosA(Point posA) {        this.posA = posA;    }
+
+    public Double getPuntosB() {        return puntosB;    }
+    
+    public void setPuntosB(Double puntosB) {        this.puntosB += puntosB;    }
+
+    public Double getPuntosA() {        return puntosA;    }
+
+    public void setPuntosA(Double puntosA) {        this.puntosA += puntosA;    }
+
+    public void setUtilidad(Double utilidad) {        this.utilidad = utilidad;    }
 }

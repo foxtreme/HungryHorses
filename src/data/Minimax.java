@@ -11,19 +11,7 @@ public class Minimax {
     private int profundidad;
     private Point movida;
 
-    public Estado getActual() {        return actual;    }
-
-    public void setActual(Estado actual) {        this.actual = actual;    }
-
-    public int getProfundidad() {        return profundidad;    }
-
-    public void setProfundidad(int profundidad) {        this.profundidad = profundidad;    }
-
-    public Point getMovida() {        return movida;    }
-
-    public Minimax(Estado actual) {        this.actual = actual;    }
-    
-    
+       
     public void decisionMx(Estado actual, int limite) {
         Point decision = new Point();
         List acciones = actual.movidasValidas();
@@ -39,7 +27,7 @@ public class Minimax {
                 decision = accionRep;
                 utilidad = utilidadSiguiente;
             }
-            System.out.println("accion max: " + decision.toString() + " utilidad: " + utilidad);
+            //System.out.println("accion max: " + decision.toString() + " utilidad: " + utilidad);
         }
         movida = decision;
     }
@@ -47,10 +35,11 @@ public class Minimax {
     public Point [] decisionMn(Estado actual, int limite) {
         Point decision = new Point();
         List acciones = actual.movidasValidas();
+        /*
         for(int j=0; j>acciones.size();j++){
             System.out.println(" movida "+acciones.get(j));
         }
-            
+        */    
         Point accionRep;
         Double utilidad = Double.NEGATIVE_INFINITY;
         Iterator it = acciones.iterator();
@@ -66,7 +55,7 @@ public class Minimax {
             Double utilidadSiguiente = valorMax(siguiente, limite);
             decision = accionRep;
             utilidad = utilidadSiguiente;
-            System.out.println("accion min: " + decision.toString() + " utilidad: " + utilidad);
+            //System.out.println("accion min: " + decision.toString() + " utilidad: " + utilidad);
         }
         
         movida = decision;
@@ -74,6 +63,12 @@ public class Minimax {
         return puntos;
     }
 
+    /**
+     * Calcula el maximo de las opciones disponibles
+     * @param actual
+     * @param limite
+     * @return 
+     */
     public Double valorMax(Estado actual, int limite) {
         Double utilidad = Double.NEGATIVE_INFINITY;
         if (actual.terminal(limite)) {
@@ -90,6 +85,12 @@ public class Minimax {
         return utilidad;
     }
 
+    /**
+     * Calcula el minimo de las opciones disponibles
+     * @param actual
+     * @param limite
+     * @return 
+     */
     public double valorMin(Estado actual, int limite) {
         Double utilidad2 = Double.POSITIVE_INFINITY;
         if (actual.terminal(limite)) {
@@ -105,6 +106,18 @@ public class Minimax {
         }
         return utilidad2;
     }
+    
+    public Estado getActual() {        return actual;    }
+
+    public void setActual(Estado actual) {        this.actual = actual;    }
+
+    public int getProfundidad() {        return profundidad;    }
+
+    public void setProfundidad(int profundidad) {        this.profundidad = profundidad;    }
+
+    public Point getMovida() {        return movida;    }
+
+    public Minimax(Estado actual) {        this.actual = actual;    }
 }
    
 
