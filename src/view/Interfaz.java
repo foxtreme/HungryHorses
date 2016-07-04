@@ -335,6 +335,7 @@ public class Interfaz extends javax.swing.JFrame {
      * @param evt
      */
     private void btnJugador1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugador1ActionPerformed
+        if ((Double.parseDouble(labelPuntajeBlanco.getText()) + Double.parseDouble(labelPuntajeNegro.getText())) < 35) {
         comboDificultad.setEnabled(false);
         btnJugador2.setVisible(true);
         l1.setVisible(true);
@@ -368,8 +369,7 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
         };
-        hilo.start();
-
+        hilo.start();  
         //Estado.imprimirTablero(Nuevo);
         Minimax mov1 = new Minimax(Nuevo);
         punt = mov1.decisionMn(Nuevo, nivel);
@@ -395,7 +395,18 @@ public class Interfaz extends javax.swing.JFrame {
         
         crearbotones();
         btnJugador1.setVisible(false);
-
+        }
+        else {//si el puntaje ha alcanzado su maximo
+            System.out.println("fin " + ptsBlanco + " ------- " + ptsNegro);
+            String victoria;
+            if (ptsBlanco < ptsNegro) {
+                victoria = "Ganado";
+            } else {
+                victoria = "Perdido";
+            }
+            JOptionPane.showMessageDialog(null, "Usted Ha " + victoria, "Fin del Juego", JOptionPane.INFORMATION_MESSAGE);
+            crearJuegoNuevo();
+        }
     }//GEN-LAST:event_btnJugador1ActionPerformed
 
     /**
@@ -404,6 +415,11 @@ public class Interfaz extends javax.swing.JFrame {
      * @param evt
      */
     private void btnJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoNuevoActionPerformed
+        crearJuegoNuevo();
+
+    }//GEN-LAST:event_btnJuegoNuevoActionPerformed
+
+    public void crearJuegoNuevo(){
         ptsBlanco = 0;
         ptsNegro = 0;
         raiz = Estado.crearEstadoInicial(filas);
@@ -419,11 +435,12 @@ public class Interfaz extends javax.swing.JFrame {
         btnJugador2.setVisible(false);
         l1.setVisible(false);
         l2.setVisible(false);
+        labelPuntajeBlanco.setText("0");
+        labelPuntajeNegro.setText("0");
         campoFila.setVisible(false);
         campoColumna.setVisible(false);
-
-    }//GEN-LAST:event_btnJuegoNuevoActionPerformed
-
+    }
+    
     /**
      * Jugador Negro
      *
@@ -431,7 +448,7 @@ public class Interfaz extends javax.swing.JFrame {
      */
     private void btnJugador2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugador2ActionPerformed
         System.out.println(ptsBlanco + " ------- " + ptsNegro);
-        if ((Double.parseDouble(labelPuntajeBlanco.getText()) + Double.parseDouble(labelPuntajeNegro.getText())) <= 35) {
+        if ((Double.parseDouble(labelPuntajeBlanco.getText()) + Double.parseDouble(labelPuntajeNegro.getText())) < 35) {
 
             if ((campoFila.getText().length() == 0) || (campoColumna.getText().length() == 0)) {
                 JOptionPane.showMessageDialog(null, "Debe ingresar la fila y la columna para jugar");
@@ -496,13 +513,13 @@ public class Interfaz extends javax.swing.JFrame {
         } else {//si el puntaje ha alcanzado su maximo
             System.out.println("fin " + ptsBlanco + " ------- " + ptsNegro);
             String victoria;
-            if (ptsBlanco > ptsNegro) {
+            if (ptsBlanco < ptsNegro) {
                 victoria = "Ganado";
             } else {
                 victoria = "Perdido";
             }
-            JOptionPane.showConfirmDialog(null, "Usted Ha " + victoria, "Fin del Juego", JOptionPane.INFORMATION_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, "Usted Ha " + victoria, "Fin del Juego", JOptionPane.INFORMATION_MESSAGE);
+            crearJuegoNuevo();
         }
 
     }//GEN-LAST:event_btnJugador2ActionPerformed
