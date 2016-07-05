@@ -34,10 +34,10 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         initComponents();
         comboDificultad.addItem("");
-        comboDificultad.addItem("Facil");
-        comboDificultad.addItem("Normal");
-        comboDificultad.addItem("Dificil");
-
+        comboDificultad.addItem("Principiante");
+        comboDificultad.addItem("Amateur");
+        comboDificultad.addItem("Experto");
+        
         cuad();
         btnJugador1.setVisible(false);
         btnJugador2.setVisible(false);
@@ -348,11 +348,13 @@ public class Interfaz extends javax.swing.JFrame {
         campoColumna.setVisible(true);
         campoFila.setText("");
         campoColumna.setText("");
-        if (comboDificultad.getSelectedItem() == "Facil") {
+
+        
+        if (comboDificultad.getSelectedItem() == "Principiante") {
             nivel = 2;
-        } else if (comboDificultad.getSelectedItem() == "Normal") {
+        } else if (comboDificultad.getSelectedItem() == "Amateur") {
             nivel = 4;
-        } else if (comboDificultad.getSelectedItem() == "Dificil") {
+        } else if (comboDificultad.getSelectedItem() == "Experto") {
             nivel = 6;
         }
         //Estado.imprimirTablero(raiz);
@@ -432,9 +434,9 @@ public class Interfaz extends javax.swing.JFrame {
         comboDificultad.setEnabled(true);
         comboDificultad.removeAllItems();
         comboDificultad.addItem("");
-        comboDificultad.addItem("Facil");
-        comboDificultad.addItem("Normal");
-        comboDificultad.addItem("Dificil");
+        comboDificultad.addItem("Principiante");
+        comboDificultad.addItem("Amateur");
+        comboDificultad.addItem("Experto");
         btnJugador1.setVisible(false);
         btnJugador2.setVisible(false);
         l1.setVisible(false);
