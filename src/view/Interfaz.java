@@ -374,7 +374,7 @@ public class Interfaz extends javax.swing.JFrame {
         Minimax mov1 = new Minimax(Nuevo);
         punt = mov1.decisionMn(Nuevo, nivel);
         Point movida1 = mov1.getMovida();
-        System.out.println("la jugada recomendada de negro es: " + movida1.toString());
+        //System.out.println("la jugada recomendada de negro es: " + movida1.toString());
         z = punt.length;
         valorz = new int[z];
 
@@ -1863,7 +1863,7 @@ public class Interfaz extends javax.swing.JFrame {
         JButton button55x = (JButton) component[54];
         button55x.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button15xActionPerformed(evt);
+                button55xActionPerformed(evt);
             }
         });
         JButton button56x = (JButton) component[55];
